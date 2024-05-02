@@ -4,17 +4,18 @@ from mypackage.ruleset import Ruleset
 class PPDSimulation:
 
     def __init__(self) -> None:
-        __rounds = Ruleset.rounds()
-        __candidates = PPDSimulation.initcandidates()
+        pass
 
-    def runsim():
-        for rep in Ruleset.repetitions():
-            for candidate1 in PPDSimulation.__candidates:
-                for candidate2 in PPDSimulation.__candidates:
-                    for rou in PPDSimulation.__rounds:
+    def runsim(self):
+        rule = Ruleset()
+        candidates = self.initcandidates()
+        for rep in rule.repetitions():
+            for candidate1 in candidates:
+                for candidate2 in candidates:
+                    for rou in rule.rounds:
                         pass
     
-    def initcandidates():
+    def initcandidates(self):
         pass
 
 
@@ -25,5 +26,5 @@ class Strategy:
     def __init__(self) -> None:
         pass # Hier muss noch der Name der jeweiligen Strategie definiert werden
 
-    def react(currentrun, myhist, hishist, myscore, hisscore):
-        return Strategy.defect
+    def react(currentrun, myhist, hishist):
+        return Strategy.cooperate
