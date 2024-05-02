@@ -1,9 +1,10 @@
 # 
 
-from mypackage.ruleset import Ruleset
+from mypackage.simulation import PPDSimulation
 
 def main():
-    pass
+    ppdsim = PPDSimulation()
+    ppdsim.runsimtest()
 
 if __name__ == "__main__":
     main()
