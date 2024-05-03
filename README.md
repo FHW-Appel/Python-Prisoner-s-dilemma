@@ -20,5 +20,5 @@ In diesem Projekt wollen wir das Gefangenendilemma wie es von der RAND Coperatio
 Folgende Punkte müssen noch geklärt werden:
 * Welche Attribute privat und welche Attribute öffentlich definiert werden sollten. Über die Möglichkeit den Attributen Properties zuzuweisen könnte dies zu einen späteren Zeitpunkt geklärt werden. --> Dekoration mit @property und @Attributname
 * Welche Klassen als Klasse verwendet werden und bei welchen Klassen mit den erzeugten Instanzen gearbeitet wird. Die Entscheidung gibt auch ausschluss darüber welche Klassen mit einem @classmethod und mit einem @staticmethod dekoriert werden muss. Die einzelnen Strategien müssen als Objekte verwendet werden, da auch jede Strategie gegen sich selbst antreten soll.
-dfssdfds
+
 
