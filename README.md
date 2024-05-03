@@ -22,5 +22,6 @@ Folgende Punkte müssen noch geklärt werden:
 * Welche Klassen als Klasse verwendet werden und bei welchen Klassen mit den erzeugten Instanzen gearbeitet wird. Die Entscheidung gibt auch ausschluss darüber welche Klassen mit einem @classmethod und mit einem @staticmethod dekoriert werden muss. Die einzelnen Strategien müssen als Objekte verwendet werden, da auch jede Strategie gegen sich selbst antreten soll.
 
 Test-Branch
+Change no. 2
 
 
