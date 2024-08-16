@@ -1,8 +1,8 @@
 
 from .ruleset import Ruleset
 from .basestrategy import Strategy
-from .default_strategies.defaultstrat import TitForTat # Hier muss noch ein Befehl gefunden werden mit dem alle Classen einer Datei oder eines Ordners eingebunden werden können.
-from .default_strategies.defaultstrat import RandomStrat
+from .default_strategies.defaultstrat import * # importiert alle Klassen des Files "defaultstrat"
+from .custom_strategies import * # Hier muss noch ein Befehl gefunden werden mit dem alle Klassen eines Ordners eingebunden werden können.
 
 
 class PPDSimulation:
@@ -11,8 +11,10 @@ class PPDSimulation:
         pass
 
     def runsimtest(self):
+        listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
+        print(listOfStrategies) # Gebe die Strategie 0 aus 
         rule = Ruleset()
-        c1 = TitForTat()
+        c1 = listOfStrategies[0]() # Erstelle ein Objekt der ersten Strategie
         c2 = RandomStrat()
         histc1 = []
         histc2 = []
@@ -35,4 +37,8 @@ class PPDSimulation:
                         pass
     
     def initcandidates(self):
-        pass
+        listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
+        strategyObjects = []
+        for iStrategy in listOfStrategies:
+            strategyObjects.append(iStrategy()) # Erstelle Objekte der definierten Strategien
+        return strategyObjects
