@@ -10,7 +10,6 @@ class TitForTat(Strategy):
         self.name = "Tit for Tat"
 
     def react(self, currentturn, myhist, hishist):
-        print(currentturn)
         if (0 == currentturn):
             return Strategy.cooperate
         else:
