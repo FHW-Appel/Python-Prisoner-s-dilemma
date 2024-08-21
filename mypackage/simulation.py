@@ -36,12 +36,17 @@ class PPDSimulation:
                 for rep in range(rule.repetitions):
                     histc1 = []
                     histc2 = []
+                    pointsc1 = 0
+                    pointsc2 = 0
                     for turn in range(rule.turns):
                         histc1.append(candidate1.react(turn, histc1, histc2))
                         histc2.append(candidate2.react(turn, histc2, histc1))
+                        [pointsc1, pointsc2] = rule.evaluate_points(histc1[turn], histc2[turn], pointsc1, pointsc2)
                         # Punkte in Pandas zählen
+                    print(pointsc1)
                     print(histc1)
                     print(histc2)
+                    print(pointsc2)
     
     def initcandidates(self):
         listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
