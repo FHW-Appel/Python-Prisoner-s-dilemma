@@ -34,8 +34,14 @@ class PPDSimulation:
             for candidate2 in candidates[candidates.index(candidate1)+1:]: # Schleife ab candidate1 + 1
                 print("Paarung: " + candidate1.name + "   vs.   " + candidate2.name)
                 for rep in range(rule.repetitions):
+                    histc1 = []
+                    histc2 = []
                     for turn in range(rule.turns):
-                        pass # Punkte in Pandas zählen
+                        histc1.append(candidate1.react(turn, histc1, histc2))
+                        histc2.append(candidate2.react(turn, histc2, histc1))
+                        # Punkte in Pandas zählen
+                    print(histc1)
+                    print(histc2)
     
     def initcandidates(self):
         listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 

@@ -7,8 +7,7 @@ class FirstCosumStrat(Strategy):
         self.name = "First Custom Strategy"
 
     def react(self, currentturn, myhist, hishist):
-        print(currentturn)
         if (1 > currentturn):
             return Strategy.cooperate
         else:
-            return hishist[currentturn-2]    
+            return hishist[-2]    
