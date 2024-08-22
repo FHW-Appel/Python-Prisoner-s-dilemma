@@ -12,7 +12,7 @@ class Ruleset:
         self.both_cooperates = 3 # R belohnen
         self.temptation = 5 # T Auszahlung der Versuchung
         self.turns_rand = False # Verkürzung bzw. Verlängerung der Anzahl der Runden
-        self.turns_base = 5 # Anzahl der Runden die eine Paarung aufeinandertrifft 
+        self.turns_base = 200 # Anzahl der Runden die eine Paarung aufeinandertrifft 
         self.turns = self.set_rounds()
         self.repetitions = 5 # Anzahl der Simulationswiederholungen
 

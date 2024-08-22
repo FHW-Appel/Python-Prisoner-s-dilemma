@@ -48,15 +48,12 @@ class PPDSimulation:
                         histc1.append(candidates[i1].react(turn, histc1, histc2))
                         histc2.append(candidates[i2].react(turn, histc2, histc1))
                         [pointsc1, pointsc2] = rule.evaluate_points(histc1[turn], histc2[turn], pointsc1, pointsc2)
-                    sim_results["Total Points"].iloc[i1] += pointsc1
-                    sim_results["Total Points"].iloc[i2] += pointsc2
-                    # Punkte in Pandas zählen
-                    print(pointsc1)
-                    print(histc1)
-                    print(histc2)
-                    print(pointsc2)
-        sim_results["Average Points"] = sim_results["Total Points"] / num_candidates / rule.repetitions
-        print(sim_results)
+                    sim_results.loc[i1, "Total Points"] += pointsc1
+                    sim_results.loc[i2, "Total Points"] += pointsc2
+        sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
+        print("Results")
+        print(sim_results.sort_values(by="Total Points", ascending=False))
+
     
     def initcandidates(self):
         listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
