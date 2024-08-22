@@ -10,11 +10,10 @@ class TitForTat(Strategy):
         self.name = "Tit for Tat"
 
     def react(self, currentturn, myhist, hishist):
-        print(currentturn)
         if (0 == currentturn):
             return Strategy.cooperate
         else:
-            return hishist[currentturn-1]    
+            return hishist[-1]    
 
 
 class RandomStrat(Strategy):

@@ -9,7 +9,7 @@ In diesem Projekt wollen wir das Gefangenendilemma wie es von der RAND Coperatio
 
 ## To-Do
 
-- [ ] Grundprogramm erzeugen
+- [x] Grundprogramm erzeugen
 - [ ] Simualtionsroutine erzeugen
 - [ ] Standardstrategien erzeugen
 - [ ] Möglichkeit für eigene Strategien erzeugen.
