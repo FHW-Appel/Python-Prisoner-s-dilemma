@@ -25,4 +25,23 @@ class RandomStrat(Strategy):
         if (0 < (random.random() - 0.5)):
             return Strategy.cooperate
         else:
-            return Strategy.defect    
+            return Strategy.defect  
+
+
+class Friedman(Strategy):
+    
+    def __init__(self) -> None:
+        self.name = "Friedman"
+        self.cheated = False
+
+    def react(self, currentturn, myhist, hishist):
+        if (0 == currentturn):
+            self.cheated = False
+            return Strategy.cooperate
+        else:
+            if (Strategy.defect == hishist[-1]):
+                self.cheated = True
+            if (True == self.cheated):
+                return Strategy.defect
+            else:
+                return Strategy.cooperate 
