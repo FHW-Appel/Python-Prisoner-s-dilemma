@@ -1,5 +1,5 @@
 # Python Gefangenendilemma
-In diesem Projekt wird das Gefangenendilemma, wie es von der RAND Corporation entworfen wurde, in Python nachprogrammiert. Neben bekannten Strategien besteht auch die Möglichkeit, eigene Strategien hinzuzufügen.
+In diesem Projekt wird das Gefangenendilemma in Python nachprogrammiert. Neben bekannten Strategien besteht auch die Möglichkeit, eigene Strategien hinzuzufügen.
 
 ## Was ist das Gefangenendilemma?
 
