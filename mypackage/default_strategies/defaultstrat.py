@@ -45,3 +45,24 @@ class Friedman(Strategy):
                 return Strategy.defect
             else:
                 return Strategy.cooperate 
+            
+
+class Joss(Strategy):
+
+    def __init__(self) -> None:
+        self.name = "Joss"
+
+    def react(self, currentturn, myhist, hishist):
+        if (0 == currentturn):
+            if (0 < (random.random() - 0.1)):
+                return Strategy.cooperate
+            else:
+                return Strategy.defect  
+        else:
+            if (Strategy.defect == hishist[-1]):
+                return Strategy.defect
+            else:
+                if (0 < (random.random() - 0.1)):
+                    return Strategy.cooperate
+                else:
+                    return Strategy.defect   
