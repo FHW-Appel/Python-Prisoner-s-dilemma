@@ -53,7 +53,7 @@ class Joss(Strategy):
         self.name = "Joss"
 
     def react(self, currentturn, myhist, hishist):
-        if (0 == currentturn):
+        if (0 == currentturn): 
             if (0 < (random.random() - 0.1)):
                 return Strategy.cooperate
             else:
@@ -66,3 +66,24 @@ class Joss(Strategy):
                     return Strategy.cooperate
                 else:
                     return Strategy.defect   
+                
+
+class Davis(Strategy):
+    
+    def __init__(self) -> None:
+        self.name = "Davis"
+        self.cheated = False
+
+    def react(self, currentturn, myhist, hishist):
+        if (0 == currentturn): # Die ersten Runde
+            self.cheated = False
+        if (9 >= currentturn): # Die ersten 10 Runden
+            return Strategy.cooperate # Die ersten 10 Runden wird immer kooperiert
+        else: # Ab der 11 Runde
+            if (Strategy.defect == hishist[-1]): # Wurde diese Strategie in der letzten Runde betrogen?
+                self.cheated = True # Merke Dir, dass du betrogen wurdest
+            if (True == self.cheated): # Wurdest du schon mal betrogen?
+                return Strategy.defect
+            else:
+                return Strategy.cooperate
+    
