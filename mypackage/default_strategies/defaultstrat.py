@@ -86,4 +86,23 @@ class Davis(Strategy):
                 return Strategy.defect
             else:
                 return Strategy.cooperate
+
+
+class Grofman(Strategy):
+
+    def __init__(self):
+        self.name = "Grofman"
+
+    def react(self, currentturn, myhist, hishist):
+        if (0 == currentturn): # Die ersten Runde
+             return Strategy.cooperate
+        else:
+            if (hishist[-1] != myhist[-1]): # Wenn in der letzten Runde keine Einigkeit bestand
+                if (0 < (random.random() - 0.286)):
+                    return Strategy.cooperate
+                else:
+                    return Strategy.defect
+            else:
+                return Strategy.cooperate
+
     
