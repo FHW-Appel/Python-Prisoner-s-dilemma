@@ -22,10 +22,7 @@ class RandomStrat(Strategy):
         self.name = "Random"
 
     def react(self, currentturn, myhist, hishist):
-        if (0 < (random.random() - 0.5)):
-            return Strategy.cooperate
-        else:
-            return Strategy.defect  
+        return self.reactProbCooperate(50) # Kooperiere zu einer Wahrscheinlichkeit von 50 % 
 
 
 class Friedman(Strategy):
@@ -54,18 +51,12 @@ class Joss(Strategy):
 
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn): 
-            if (0 < (random.random() - 0.1)):
-                return Strategy.cooperate
-            else:
-                return Strategy.defect  
+            return self.reactProbCooperate(90) # Kooperiere zu einer Wahrscheinlichkeit von 90 % 
         else:
             if (Strategy.defect == hishist[-1]):
                 return Strategy.defect
             else:
-                if (0 < (random.random() - 0.1)):
-                    return Strategy.cooperate
-                else:
-                    return Strategy.defect   
+                return self.reactProbCooperate(90) # Kooperiere zu einer Wahrscheinlichkeit von 90 % 
                 
 
 class Davis(Strategy):
@@ -98,10 +89,7 @@ class Grofman(Strategy):
              return Strategy.cooperate
         else:
             if (hishist[-1] != myhist[-1]): # Wenn in der letzten Runde keine Einigkeit bestand
-                if (0 < (random.random() - 0.286)):
-                    return Strategy.cooperate
-                else:
-                    return Strategy.defect
+                return self.reactProbCooperate(28.6) # Kooperiere zu einer Wahrscheinlichkeit von 28.6 %
             else:
                 return Strategy.cooperate
 
