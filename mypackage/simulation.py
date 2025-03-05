@@ -25,6 +25,13 @@ class PPDSimulation:
             print(histc2)
             # Punkte Berechnen und vergeben
 
+    def runsimtest2(self):
+        testStrategy = Strategy()
+        testResult = 1
+        for testRuns in range(1,100):
+            if (testStrategy.defect == testStrategy.reactProbDefect(30)):
+                testResult += 1
+        print(testResult)
 
     
     def runsim(self):

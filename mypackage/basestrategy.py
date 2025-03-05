@@ -15,7 +15,7 @@ class Strategy:
         return Strategy.cooperate
 
     def reactProbCooperate(self, prob):
-        if (prob < (random.random()*100)): # Kooperiere mit der übergebenen Wahrscheinlichkeit
+        if (prob > (random.random()*100)): # Kooperiere mit der übergebenen Wahrscheinlichkeit
             return self.cooperate
         else:
             return self.defect
