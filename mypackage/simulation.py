@@ -58,8 +58,7 @@ class PPDSimulation:
                     sim_results.loc[i1, "Total Points"] += pointsc1
                     sim_results.loc[i2, "Total Points"] += pointsc2
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
-        print("Results")
-        print(sim_results.sort_values(by="Total Points", ascending=False))
+        self.showresults(sim_results)
 
     
     def initcandidates(self):
@@ -68,3 +67,8 @@ class PPDSimulation:
         for iStrategy in listOfStrategies:
             strategyObjects.append(iStrategy()) # Erstelle Objekte der definierten Strategien
         return strategyObjects
+    
+    def showresults(self, sim_results):
+        print("Results")
+        print(sim_results.sort_values(by="Total Points", ascending=False))
+
