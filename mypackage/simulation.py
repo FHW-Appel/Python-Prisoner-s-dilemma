@@ -38,8 +38,12 @@ class PPDSimulation:
         rule = Ruleset()
         candidates = self.initcandidates()
         num_candidates = len(candidates)
+        strategie_names = []
+        for i0 in range(num_candidates):
+            strategie_names.append(candidates[i0].name)
         #print(candidates.name)
-        sim_results = pd.DataFrame({"Startegie Objekt": candidates,
+        sim_results = pd.DataFrame({"Strategie Objekt": candidates,
+                                    "Strategie Name": strategie_names,
                                     "Total Points": [0] * num_candidates,
                                     "Average Points": [0] * num_candidates})
         print(sim_results)
@@ -69,6 +73,9 @@ class PPDSimulation:
         return strategyObjects
     
     def showresults(self, sim_results):
+        #sim_results.insert(loc = 1, column = "Strategie Name", value = []) 
+        #print(sim_results["Strategie Objekt"]) # Hier muss noch rausgefunden werden, wie an die namen der Strategie gekommen wird
         print("Results")
-        print(sim_results.sort_values(by="Total Points", ascending=False))
+        show_results = sim_results[["Strategie Name", "Total Points", "Average Points"]]
+        print(show_results.sort_values(by="Total Points", ascending=False))
 
