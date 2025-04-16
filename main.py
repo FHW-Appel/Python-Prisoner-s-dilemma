@@ -8,6 +8,7 @@ def main():
     #candidates = ppdsim.initcandidates()
     #ppdsim.runsimtest2()   
     ppdsim.runsim()
+    exit(0)
     
 
 if __name__ == "__main__":

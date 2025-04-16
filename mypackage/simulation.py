@@ -3,7 +3,10 @@ from .ruleset import Ruleset
 from .basestrategy import Strategy
 from .default_strategies.defaultstrat import * # importiert alle Klassen des Files "defaultstrat"
 from .custom_strategies import * # Hier muss noch ein Befehl gefunden werden mit dem alle Klassen eines Ordners eingebunden werden können.
+from .GUIs import GUIresults
+
 import pandas as pd
+
 
 class PPDSimulation:
 
@@ -24,6 +27,7 @@ class PPDSimulation:
             print(histc1)
             print(histc2)
             # Punkte Berechnen und vergeben
+        return None
 
     def runsimtest2(self):
         testStrategy = Strategy()
@@ -32,8 +36,8 @@ class PPDSimulation:
             if (testStrategy.defect == testStrategy.reactProbDefect(30)):
                 testResult += 1
         print(testResult)
+        return None
 
-    
     def runsim(self):
         rule = Ruleset()
         candidates = self.initcandidates()
@@ -62,9 +66,9 @@ class PPDSimulation:
                     sim_results.loc[i1, "Total Points"] += pointsc1
                     sim_results.loc[i2, "Total Points"] += pointsc2
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
-        self.showresults(sim_results)
-
-    
+        GUIresults.showresultsGUI(self, sim_results)
+        return None
+   
     def initcandidates(self):
         listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
         strategyObjects = []
@@ -77,5 +81,8 @@ class PPDSimulation:
         #print(sim_results["Strategie Objekt"]) # Hier muss noch rausgefunden werden, wie an die namen der Strategie gekommen wird
         print("Results")
         show_results = sim_results[["Strategie Name", "Total Points", "Average Points"]]
-        print(show_results.sort_values(by="Total Points", ascending=False))
+        show_results.sort_values(by="Total Points", ascending=False, inplace=True)
+        print(show_results)
+        return None
+
 
