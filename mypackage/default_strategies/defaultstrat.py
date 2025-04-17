@@ -98,5 +98,20 @@ class Grofman(Strategy):
                 return self.reactProbCooperate(28.6) # Kooperiere zu einer Wahrscheinlichkeit von 28.6 %
             else:
                 return Strategy.cooperate
+            
+class Feld(Strategy):
+
+    def __init__(self):
+        self.name = "Feld"
+        self.nice = False
+
+    def react(self, currentturn, myhist, hishist):
+        if (0 == currentturn): # Die ersten Runde
+             return Strategy.cooperate
+        else:
+            if (Strategy.cooperate == hishist[-1]): # Wenn in der letzten Runde kooperiert wurde
+                return self.reactProbDefect(currentturn/3) # Kooperiere nicht zu einer Wahrscheinlichkeit, die von Runde zu Runde steigt
+            else:
+                return Strategy.defect # Wenn in der letzten Runde nicht kooperiert wurde, dann kooperiere nicht
 
     
