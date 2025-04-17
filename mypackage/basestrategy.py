@@ -6,6 +6,7 @@ class Strategy:
     defect = False
     cooperate = True
     classid = 0 # Muss noch gesetzt werden
+    nice = False
 
     def __init__(self) -> None:
         self.name = ""

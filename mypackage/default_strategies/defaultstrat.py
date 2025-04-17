@@ -8,6 +8,7 @@ class TitForTat(Strategy):
 
     def __init__(self) -> None:
         self.name = "Tit for Tat"
+        self.nice = True
 
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn):
@@ -20,6 +21,7 @@ class RandomStrat(Strategy):
 
     def __init__(self) -> None:
         self.name = "Random"
+        self.nice = False
 
     def react(self, currentturn, myhist, hishist):
         return self.reactProbCooperate(50) # Kooperiere zu einer Wahrscheinlichkeit von 50 % 
@@ -30,6 +32,7 @@ class Friedman(Strategy):
     def __init__(self) -> None:
         self.name = "Friedman"
         self.cheated = False
+        self.nice = True
 
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn):
@@ -48,6 +51,7 @@ class Joss(Strategy):
 
     def __init__(self) -> None:
         self.name = "Joss"
+        self.nice = False
 
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn): 
@@ -68,6 +72,7 @@ class Davis(Strategy):
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn): # Die ersten Runde
             self.cheated = False
+            self.nice = True
         if (9 >= currentturn): # Die ersten 10 Runden
             return Strategy.cooperate # Die ersten 10 Runden wird immer kooperiert
         else: # Ab der 11 Runde
@@ -83,6 +88,7 @@ class Grofman(Strategy):
 
     def __init__(self):
         self.name = "Grofman"
+        self.nice = True
 
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn): # Die ersten Runde
