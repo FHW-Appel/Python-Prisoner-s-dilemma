@@ -1,22 +1,37 @@
 """
-Dieses Modul enthält die Klasse `GUIresults`, die für die grafische Darstellung
+Dieses Modul enthält die Klassen, die für die grafische Darstellung
 der Simulationsergebnisse des Gefangenendilemmas verantwortlich ist.
-
-Methoden:
-- showresultsGUI(sim_results): Zeigt die Ergebnisse der Simulation in einem
-  horizontalen Balkendiagramm an. Strategien, die "nice" sind, werden grün
-  dargestellt, während andere rot dargestellt werden.
 """
 
 import matplotlib.pyplot as plt  # Import hinzufügen
 
 
 class GUIresults:
-
-    def __init__(self) -> None:
-        pass
+    """
+    Diese Klasse ist für die grafische Darstellung der Simulationsergebnisse
+    des Gefangenendilemmas verantwortlich.
+    """
 
     def show_results_gui(self, sim_results):
+        """
+        Zeigt die Ergebnisse der Simulation in einem
+        horizontalen Balkendiagramm an.
+
+        Die Strategien werden basierend auf ihrem Attribut "nice"
+        farblich dargestellt:
+        - Grüne Balken: Strategien, die "nice" sind.
+        - Rote Balken: Strategien, die nicht "nice" sind.
+
+        Parameter:
+        - sim_results (DataFrame): Ein Pandas-DataFrame, der die
+        Ergebnisse der Simulation enthält. Erwartet werden die Spalten:
+        - "Strategie Objekt": Die Strategie-Objekte.
+        - "Strategie Name": Der Name der Strategie.
+        - "Average Points": Die durchschnittlichen Punkte der Strategie.
+
+        Rückgabewert:
+        - None
+        """
         # Ermittle, ob eine Strategie "nice" ist
         sim_results["nice"] = sim_results["Strategie Objekt"].apply(lambda candidates: candidates.nice)
         # Sortiere das Ergebnis nach der durchschnittlichen Punktzahl
