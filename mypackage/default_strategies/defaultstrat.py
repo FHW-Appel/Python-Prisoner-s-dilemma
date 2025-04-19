@@ -114,4 +114,27 @@ class Feld(Strategy):
             else:
                 return Strategy.defect # Wenn in der letzten Runde nicht kooperiert wurde, dann kooperiere nicht
 
+
+class Testfortft(Strategy):
+
+    def __init__(self) -> None:
+        self.name = "Tester"
+        self.nice = False
+        self.opponent_is_retaliating = False
     
+    def react(self, currentturn, myhist, hishist):
+        if (1 >= currentturn):
+            return Strategy.defect # In der ersten zwei Runde wird nicht kooperiert
+        elif (2 == currentturn): # In der dritten Runde wird evaluiert, ob der Gegner zurückschlägt
+            if (Strategy.defect == hishist[-1]):
+                self.opponent_is_retaliating = True
+                return Strategy.cooperate
+            else:
+                self.opponent_is_retaliating = False
+                return Strategy.defect
+        else: # Ab der dritten Runde wir entweder Tit for Tat gespielt oder der Gegner ausgenommen
+            if (self.opponent_is_retaliating == True):
+                return hishist[-1] # Mache das Gleiche wie der Gegner in der letzten Runde
+            else:
+                return Strategy.defect # Wenn der Gegner nicht zurückschlägt, dann kooperiere nicht
+        
