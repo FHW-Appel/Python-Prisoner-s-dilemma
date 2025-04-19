@@ -1,8 +1,11 @@
 
 from .ruleset import Ruleset
 from .basestrategy import Strategy
-from .default_strategies.defaultstrat import * # importiert alle Klassen des Files "defaultstrat"
-from .custom_strategies import * # Hier muss noch ein Befehl gefunden werden mit dem alle Klassen eines Ordners eingebunden werden können.
+# importiert alle Klassen des Files "defaultstrat"
+from .default_strategies.defaultstrat import *
+# Hier muss noch ein Befehl gefunden werden,
+# mit dem alle Klassen eines Ordners eingebunden werden können.
+from .custom_strategies import *
 from .GUIs import GUIresults
 
 import pandas as pd
@@ -14,10 +17,11 @@ class PPDSimulation:
         pass
 
     def runsimtest(self):
-        listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
-        print(listOfStrategies) # Gebe die Strategie 0 aus 
+        # Ereuge eine Liste aller Klassen, die von Strategy abgeleitet wurden
+        listOfStrategies = Strategy.__subclasses__()
+        print(listOfStrategies)  # Gebe die Strategien aus
         rule = Ruleset()
-        c1 = listOfStrategies[0]() # Erstelle ein Objekt der ersten Strategie
+        c1 = listOfStrategies[0]()  # Erstelle ein Objekt der ersten Strategie
         c2 = RandomStrat()
         histc1 = []
         histc2 = []
@@ -32,7 +36,7 @@ class PPDSimulation:
     def runsimtest2(self):
         testStrategy = Strategy()
         testResult = 1
-        for testRuns in range(1,100):
+        for testRuns in range(1, 100):
             if (testStrategy.defect == testStrategy.reactProbDefect(30)):
                 testResult += 1
         print(testResult)
@@ -45,14 +49,16 @@ class PPDSimulation:
         strategie_names = []
         for i0 in range(num_candidates):
             strategie_names.append(candidates[i0].name)
-        #print(candidates.name)
+        # print(candidates.name)
         sim_results = pd.DataFrame({"Strategie Objekt": candidates,
                                     "Strategie Name": strategie_names,
                                     "Total Points": [0] * num_candidates,
                                     "Average Points": [0] * num_candidates})
         print(sim_results)
-        for i1 in range(num_candidates-1): # Schleife über alle Kandidaten bis auf den letzten Kandidaten
-            for i2 in range(i1+1, num_candidates): # Schleife ab candidate1 + 1
+        # Schleife über alle Kandidaten bis auf den letzten Kandidaten
+        for i1 in range(num_candidates-1):
+            # Schleife ab candidate1 + 1
+            for i2 in range(i1+1, num_candidates):
                 print("Paarung: " + candidates[i1].name + "   vs.   " + candidates[i2].name)
                 for rep in range(rule.repetitions):
                     histc1 = []
@@ -68,21 +74,23 @@ class PPDSimulation:
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
         GUIresults.showresultsGUI(self, sim_results)
         return None
-   
+
     def initcandidates(self):
-        listOfStrategies = Strategy.__subclasses__() # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden 
+        # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden
+        listOfStrategies = Strategy.__subclasses__()
         strategyObjects = []
         for iStrategy in listOfStrategies:
-            strategyObjects.append(iStrategy()) # Erstelle Objekte der definierten Strategien
+            # Erstelle Objekte der definierten Strategien
+            strategyObjects.append(iStrategy())
         return strategyObjects
-    
+
     def showresults(self, sim_results):
-        #sim_results.insert(loc = 1, column = "Strategie Name", value = []) 
-        #print(sim_results["Strategie Objekt"]) # Hier muss noch rausgefunden werden, wie an die namen der Strategie gekommen wird
         print("Results")
-        show_results = sim_results[["Strategie Name", "Total Points", "Average Points"]]
-        show_results.sort_values(by="Total Points", ascending=False, inplace=True)
+        show_results = sim_results[["Strategie Name",
+                                    "Total Points",
+                                    "Average Points"]]
+        show_results.sort_values(by="Total Points",
+                                 ascending=False,
+                                 inplace=True)
         print(show_results)
         return None
-
-

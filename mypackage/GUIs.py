@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt  # Import hinzufügen
 
+
 class GUIresults:
 
     def __init__(self) -> None:

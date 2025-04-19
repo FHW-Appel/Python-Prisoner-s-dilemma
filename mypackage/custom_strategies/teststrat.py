@@ -11,4 +11,4 @@ class FirstCosumStrat(Strategy):
         if (1 > currentturn):
             return Strategy.cooperate
         else:
-            return hishist[-2]    
+            return hishist[-2]

@@ -2,10 +2,11 @@
 
 import random
 
+
 class Strategy:
     defect = False
     cooperate = True
-    classid = 0 # Muss noch gesetzt werden
+    classid = 0  # Muss noch gesetzt werden
     nice = False
 
     def __init__(self) -> None:
@@ -16,11 +17,11 @@ class Strategy:
         return Strategy.cooperate
 
     def reactProbCooperate(self, prob):
-        if (prob > (random.random()*100)): # Kooperiere mit der übergebenen Wahrscheinlichkeit
+        # Kooperiere mit der übergebenen Wahrscheinlichkeit
+        if (prob > (random.random()*100)):
             return self.cooperate
         else:
             return self.defect
-    
+
     def reactProbDefect(self, prob):
         return self.reactProbCooperate(100-prob)
-    
