@@ -24,7 +24,7 @@ class RandomStrat(Strategy):
 
     def react(self, currentturn, myhist, hishist):
         # Kooperiere zu einer Wahrscheinlichkeit von 50 %
-        return self.reactProbCooperate(50)
+        return self.react_prob_cooperate(50)
 
 
 class Friedman(Strategy):
@@ -56,13 +56,13 @@ class Joss(Strategy):
     def react(self, currentturn, myhist, hishist):
         if (0 == currentturn):
             # Kooperiere zu einer Wahrscheinlichkeit von 90 %
-            return self.reactProbCooperate(90)
+            return self.react_prob_cooperate(90)
         else:
             if (Strategy.defect == hishist[-1]):
                 return Strategy.defect
             else:
                 # Kooperiere zu einer Wahrscheinlichkeit von 90 %
-                return self.reactProbCooperate(90)
+                return self.react_prob_cooperate(90)
 
 
 class Davis(Strategy):
@@ -101,7 +101,7 @@ class Grofman(Strategy):
             # Wenn in der letzten Runde keine Einigkeit bestand
             if (hishist[-1] != myhist[-1]):
                 # Kooperiere zu einer Wahrscheinlichkeit von 28.6 %
-                return self.reactProbCooperate(28.6)
+                return self.react_prob_cooperate(28.6)
             else:
                 return Strategy.cooperate
 
@@ -120,7 +120,7 @@ class Feld(Strategy):
             if (Strategy.cooperate == hishist[-1]):
                 # Kooperiere nicht zu einer Wahrscheinlichkeit,
                 # die von Runde zu Runde steigt
-                return self.reactProbDefect(currentturn/3)
+                return self.react_prob_defect(currentturn/3)
             else:
                 # Wenn in der letzten Runde nicht kooperiert wurde,
                 # dann kooperiere nicht

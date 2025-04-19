@@ -14,15 +14,19 @@ Führe dieses Modul direkt aus, um die Simulation zu starten.
 """
 
 from mypackage.simulation import PPDSimulation
+import sys
 
 
 def main():
+    """
+    Hauptfunktion zur Ausführung der Simulation des Gefangenendilemmas.
+    """
     ppdsim = PPDSimulation()
     # ppdsim.runsimtest()
     # candidates = ppdsim.initcandidates()
     # ppdsim.runsimtest2()
     ppdsim.runsim()
-    exit(0)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
