@@ -7,7 +7,7 @@ from .default_strategies.defaultstrat import RandomStrat
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *
-from .GUIs import GUIresults
+from .guis import GUIresults
 
 import pandas as pd
 
@@ -76,7 +76,7 @@ class PPDSimulation:
                     sim_results.loc[i1, "Total Points"] += pointsc1
                     sim_results.loc[i2, "Total Points"] += pointsc2
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
-        GUIresults.showresultsGUI(self, sim_results)
+        GUIresults.show_results_gui(self, sim_results)
         return None
 
     def initcandidates(self):
