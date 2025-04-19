@@ -3,10 +3,11 @@ from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
 from .default_strategies.defaultstrat import *
+from .default_strategies.defaultstrat import RandomStrat
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *
-from .GUIs import GUIresults
+from .guis import GUIresults
 
 import pandas as pd
 
@@ -59,20 +60,23 @@ class PPDSimulation:
         for i1 in range(num_candidates-1):
             # Schleife ab candidate1 + 1
             for i2 in range(i1+1, num_candidates):
-                print("Paarung: " + candidates[i1].name + "   vs.   " + candidates[i2].name)
+                print("Paarung: " + candidates[i1].name +
+                      "   vs.   " + candidates[i2].name)
                 for rep in range(rule.repetitions):
                     histc1 = []
                     histc2 = []
                     pointsc1 = 0
                     pointsc2 = 0
                     for turn in range(rule.turns):
-                        histc1.append(candidates[i1].react(turn, histc1, histc2))
-                        histc2.append(candidates[i2].react(turn, histc2, histc1))
+                        histc1.append(candidates[i1].react(turn, histc1,
+                                                           histc2))
+                        histc2.append(candidates[i2].react(turn, histc2,
+                                                           histc1))
                         [pointsc1, pointsc2] = rule.evaluate_points(histc1[turn], histc2[turn], pointsc1, pointsc2)
                     sim_results.loc[i1, "Total Points"] += pointsc1
                     sim_results.loc[i2, "Total Points"] += pointsc2
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
-        GUIresults.showresultsGUI(self, sim_results)
+        GUIresults.show_results_gui(self, sim_results)
         return None
 
     def initcandidates(self):
