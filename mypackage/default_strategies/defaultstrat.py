@@ -20,7 +20,7 @@ class TitForTat(Strategy):
         self.name = "Tit for Tat"
         self.nice = True
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -40,7 +40,7 @@ class RandomStrat(Strategy):
         self.name = "Random"
         self.nice = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, _currentturn, _myhist, _hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -60,7 +60,7 @@ class Friedman(Strategy):
         self.cheated = False
         self.nice = True
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -85,7 +85,7 @@ class Joss(Strategy):
         self.name = "Joss"
         self.nice = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -109,7 +109,7 @@ class Davis(Strategy):
         self.name = "Davis"
         self.cheated = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -167,7 +167,7 @@ class Feld(Strategy):
         self.name = "Feld"
         self.nice = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -201,7 +201,7 @@ class Testfortft(Strategy):
         self.nice = False
         self.opponent_is_retaliating = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """

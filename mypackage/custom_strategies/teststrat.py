@@ -17,7 +17,7 @@ class FirstCosumStrat(Strategy):
         self.name = "First Custom Strategy"
         self.nice = True
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
