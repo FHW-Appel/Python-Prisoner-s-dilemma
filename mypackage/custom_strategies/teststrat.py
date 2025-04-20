@@ -13,6 +13,7 @@ class FirstCosumStrat(Strategy):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "First Custom Strategy"
         self.nice = True
 

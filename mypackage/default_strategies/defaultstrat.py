@@ -25,8 +25,7 @@ class TitForTat(Strategy):
         """
         if 0 == currentturn:
             return Strategy.cooperate
-        else:
-            return hishist[-1]
+        return hishist[-1]
 
 
 class RandomStrat(Strategy):
@@ -65,13 +64,12 @@ class Friedman(Strategy):
         if 0 == currentturn:
             self.cheated = False
             return Strategy.cooperate
-        else:
-            if Strategy.defect == hishist[-1]:
-                self.cheated = True
-            if self.cheated:
-                return Strategy.defect
-            else:
-                return Strategy.cooperate
+        if self.cheated:
+            return Strategy.defect
+        if Strategy.defect == hishist[-1]:
+            self.cheated = True
+            return Strategy.defect
+        return Strategy.cooperate
 
 
 class Joss(Strategy):
@@ -90,18 +88,16 @@ class Joss(Strategy):
         if 0 == currentturn:
             # Kooperiere zu einer Wahrscheinlichkeit von 90 %
             return self.react_prob_cooperate(90)
-        else:
-            if Strategy.defect == hishist[-1]:
-                return Strategy.defect
-            else:
-                # Kooperiere zu einer Wahrscheinlichkeit von 90 %
-                return self.react_prob_cooperate(90)
+        if Strategy.defect == hishist[-1]:
+            return Strategy.defect
+        # Kooperiere zu einer Wahrscheinlichkeit von 90 %
+        return self.react_prob_cooperate(90)
 
 
 class Davis(Strategy):
     """
     Diese Strategie kooperiert in den ersten 10 Runden und spielt danach
-    Tit-for-Tat.
+    Friedman. Sie kann nicht verzeihen.
     """
 
     def __init__(self) -> None:
@@ -118,14 +114,13 @@ class Davis(Strategy):
         if 9 >= currentturn:  # Die ersten 10 Runden
             # Die ersten 10 Runden wird immer kooperiert
             return Strategy.cooperate
-        else:  # Ab der 11 Runde
-            # Wurde diese Strategie in der letzten Runde betrogen?
-            if Strategy.defect == hishist[-1]:
-                self.cheated = True  # Merke Dir, dass du betrogen wurdest
-            if self.cheated:  # Wurdest du schon mal betrogen?
-                return Strategy.defect
-            else:
-                return Strategy.cooperate
+        # Ab der 11 Runde
+        # Wurde diese Strategie in der letzten Runde betrogen?
+        if Strategy.defect == hishist[-1]:
+            self.cheated = True  # Merke Dir, dass du betrogen wurdest
+        if self.cheated:  # Wurdest du schon mal betrogen?
+            return Strategy.defect
+        return Strategy.cooperate
 
 
 class Grofman(Strategy):
@@ -146,13 +141,11 @@ class Grofman(Strategy):
         """
         if 0 == currentturn:  # Die ersten Runde
             return Strategy.cooperate
-        else:
-            # Wenn in der letzten Runde keine Einigkeit bestand
-            if hishist[-1] != myhist[-1]:
-                # Kooperiere zu einer Wahrscheinlichkeit von 28.6 %
-                return self.react_prob_cooperate(28.6)
-            else:
-                return Strategy.cooperate
+        # Wenn in der letzten Runde keine Einigkeit bestand
+        if hishist[-1] != myhist[-1]:
+            # Kooperiere zu einer Wahrscheinlichkeit von 28.6 %
+            return self.react_prob_cooperate(28.6)
+        return Strategy.cooperate
 
 
 class Feld(Strategy):
@@ -173,16 +166,14 @@ class Feld(Strategy):
         """
         if 0 == currentturn:  # Die ersten Runde
             return Strategy.cooperate
-        else:
-            # Wenn in der letzten Runde kooperiert wurde
-            if Strategy.cooperate == hishist[-1]:
-                # Kooperiere nicht zu einer Wahrscheinlichkeit,
-                # die von Runde zu Runde steigt
-                return self.react_prob_defect(currentturn/3)
-            else:
-                # Wenn in der letzten Runde nicht kooperiert wurde,
-                # dann kooperiere nicht
-                return Strategy.defect
+        # Wenn in der letzten Runde kooperiert wurde
+        if Strategy.cooperate == hishist[-1]:
+            # Kooperiere nicht zu einer Wahrscheinlichkeit,
+            # die von Runde zu Runde steigt
+            return self.react_prob_defect(currentturn/3)
+        # Wenn in der letzten Runde nicht kooperiert wurde,
+        # dann kooperiere nicht
+        return Strategy.defect
 
 
 class Testfortft(Strategy):
@@ -210,18 +201,16 @@ class Testfortft(Strategy):
             # In der ersten zwei Runde wird nicht kooperiert
             return Strategy.defect
         # In der dritten Runde wird evaluiert, ob der Gegner zurückschlägt
-        elif 2 == currentturn:
+        if 2 == currentturn:
             if Strategy.defect == hishist[-1]:
                 self.opponent_is_retaliating = True
                 return Strategy.cooperate
-            else:
-                self.opponent_is_retaliating = False
-                return Strategy.defect
-        else:  # Ab der dritten Runde wird entweder Tit for Tat gespielt
-            # oder der Gegner ausgenommen
-            if self.opponent_is_retaliating:
-                # Mache das Gleiche wie der Gegner in der letzten Runde
-                return hishist[-1]
-            else:
-                # Wenn der Gegner nicht zurückschlägt, dann kooperiere nicht
-                return Strategy.defect
+            self.opponent_is_retaliating = False
+            return Strategy.defect
+        # Ab der dritten Runde wird entweder Tit for Tat gespielt
+        # oder der Gegner ausgenommen
+        if self.opponent_is_retaliating:
+            # Mache das Gleiche wie der Gegner in der letzten Runde
+            return hishist[-1]
+        # Wenn der Gegner nicht zurückschlägt, dann kooperiere nicht
+        return Strategy.defect

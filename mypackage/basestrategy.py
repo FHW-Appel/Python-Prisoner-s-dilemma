@@ -27,9 +27,9 @@ class Strategy:
     cooperate = True
     classid = 0  # Muss noch gesetzt werden
     nice = False
+    name = ""
 
     def __init__(self) -> None:
-        self.name = ""
         self.classid = -1
 
     def react(self, currentturn, myhist, hishist):
