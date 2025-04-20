@@ -50,4 +50,3 @@ class GUIresults:
         plt.xlabel("Average Points")
         plt.gca().invert_yaxis()  # Höchste Punktzahl oben anzeigen
         plt.show()
-        return None

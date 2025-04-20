@@ -32,7 +32,7 @@ class Strategy:
     def __init__(self) -> None:
         self.classid = -1
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, _currentturn, _myhist, _hishist):
         """
         Standardreaktion der Strategie.
 

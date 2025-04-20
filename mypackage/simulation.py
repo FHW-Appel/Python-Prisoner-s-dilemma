@@ -56,7 +56,7 @@ class PPDSimulation:
             for i2 in range(i1+1, num_candidates):
                 print("Paarung: " + candidates[i1].name +
                       "   vs.   " + candidates[i2].name)
-                for rep in range(rule.repetitions):
+                for _ in range(rule.repetitions):
                     histc1 = []
                     histc2 = []
                     pointsc1 = 0

@@ -12,9 +12,9 @@ Funktionen:
 Verwendung:
 Führe dieses Modul direkt aus, um die Simulation zu starten.
 """
+import sys
 
 from mypackage.simulation import PPDSimulation
-import sys
 
 
 def main():
