@@ -1,9 +1,16 @@
+"""
+Dieses Modul definiert die Klasse `PPDSimulation`, die die Simulation des
+Gefangenendilemmas ausführt.
+
+Die Simulation umfasst verschiedene Strategien, die gegeneinander antreten.
+Das Modul enthält Methoden zur Initialisierung der Strategien, zur Durchführung
+der Simulation und zur Darstellung der Ergebnisse.
+"""
 
 from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
 from .default_strategies.defaultstrat import *
-from .default_strategies.defaultstrat import RandomStrat
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *
@@ -13,37 +20,24 @@ import pandas as pd
 
 
 class PPDSimulation:
+    """
+    Klasse zur Durchführung der Simulation des Gefangenendilemmas.
+
+    Diese Klasse enthält Methoden zur Initialisierung der Strategien,
+    zur Durchführung der Simulation und zur Darstellung der Ergebnisse.
+    """
 
     def __init__(self) -> None:
         pass
 
-    def runsimtest(self):
-        # Ereuge eine Liste aller Klassen, die von Strategy abgeleitet wurden
-        listOfStrategies = Strategy.__subclasses__()
-        print(listOfStrategies)  # Gebe die Strategien aus
-        rule = Ruleset()
-        c1 = listOfStrategies[0]()  # Erstelle ein Objekt der ersten Strategie
-        c2 = RandomStrat()
-        histc1 = []
-        histc2 = []
-        for turn in range(0, rule.turns-1):
-            histc1.append(c1.react(turn, histc1, histc2))
-            histc2.append(c2.react(turn, histc2, histc1))
-            print(histc1)
-            print(histc2)
-            # Punkte Berechnen und vergeben
-        return None
-
-    def runsimtest2(self):
-        testStrategy = Strategy()
-        testResult = 1
-        for testRuns in range(1, 100):
-            if (testStrategy.defect == testStrategy.reactProbDefect(30)):
-                testResult += 1
-        print(testResult)
-        return None
-
     def runsim(self):
+        """
+        Führt die vollständige Simulation des Gefangenendilemmas durch.
+
+        Die Simulation umfasst mehrere Strategien, die in Paarungen
+        gegeneinander antreten. Die Ergebnisse werden in einem DataFrame
+        gespeichert und anschließend grafisch dargestellt.
+        """
         rule = Ruleset()
         candidates = self.initcandidates()
         num_candidates = len(candidates)
@@ -80,6 +74,13 @@ class PPDSimulation:
         return None
 
     def initcandidates(self):
+        """
+        Initialisiert alle Strategien, die von der Basisklasse `Strategy`
+        abgeleitet wurden.
+
+        Rückgabewert:
+        - list: Eine Liste von Instanzen aller abgeleiteten Strategien.
+        """
         # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden
         listOfStrategies = Strategy.__subclasses__()
         strategyObjects = []
@@ -89,6 +90,13 @@ class PPDSimulation:
         return strategyObjects
 
     def showresults(self, sim_results):
+        """
+        Gibt die Ergebnisse der Simulation in der Konsole aus.
+
+        Parameter:
+        - sim_results (DataFrame): Ein Pandas-DataFrame mit den Ergebnissen
+          der Simulation.
+        """
         print("Results")
         show_results = sim_results[["Strategie Name",
                                     "Total Points",

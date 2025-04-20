@@ -16,6 +16,7 @@ class TitForTat(Strategy):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Tit for Tat"
         self.nice = True
 
@@ -35,6 +36,7 @@ class RandomStrat(Strategy):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Random"
         self.nice = False
 
@@ -53,6 +55,7 @@ class Friedman(Strategy):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Friedman"
         self.cheated = False
         self.nice = True
@@ -78,6 +81,7 @@ class Joss(Strategy):
     außer der Gegner defektiert, dann wird auf defektiert.
     """
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Joss"
         self.nice = False
 
@@ -101,6 +105,7 @@ class Davis(Strategy):
     """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Davis"
         self.cheated = False
 
@@ -132,6 +137,7 @@ class Grofman(Strategy):
     """
 
     def __init__(self):
+        super().__init__()
         self.name = "Grofman"
         self.nice = True
 
@@ -157,6 +163,7 @@ class Feld(Strategy):
     """
 
     def __init__(self):
+        super().__init__()
         self.name = "Feld"
         self.nice = False
 
@@ -189,6 +196,7 @@ class Testfortft(Strategy):
    """
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "Tester"
         self.nice = False
         self.opponent_is_retaliating = False
