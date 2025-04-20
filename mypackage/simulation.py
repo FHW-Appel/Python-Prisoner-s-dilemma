@@ -7,6 +7,8 @@ Das Modul enthält Methoden zur Initialisierung der Strategien, zur Durchführun
 der Simulation und zur Darstellung der Ergebnisse.
 """
 
+import pandas as pd
+
 from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
@@ -15,8 +17,6 @@ from .default_strategies.defaultstrat import *
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *
 from .guis import GUIresults
-
-import pandas as pd
 
 
 class PPDSimulation:
@@ -71,7 +71,6 @@ class PPDSimulation:
                     sim_results.loc[i2, "Total Points"] += pointsc2
         sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
         GUIresults.show_results_gui(self, sim_results)
-        return None
 
     def initcandidates(self):
         """
@@ -82,12 +81,12 @@ class PPDSimulation:
         - list: Eine Liste von Instanzen aller abgeleiteten Strategien.
         """
         # Ereugt eine Liste aller Klassen, die von Strategy abgeleitet wurden
-        listOfStrategies = Strategy.__subclasses__()
-        strategyObjects = []
-        for iStrategy in listOfStrategies:
+        list_of_strategies = Strategy.__subclasses__()
+        strategy_objects = []
+        for i_strategy in list_of_strategies:
             # Erstelle Objekte der definierten Strategien
-            strategyObjects.append(iStrategy())
-        return strategyObjects
+            strategy_objects.append(i_strategy())
+        return strategy_objects
 
     def showresults(self, sim_results):
         """
@@ -105,4 +104,3 @@ class PPDSimulation:
                                  ascending=False,
                                  inplace=True)
         print(show_results)
-        return None
