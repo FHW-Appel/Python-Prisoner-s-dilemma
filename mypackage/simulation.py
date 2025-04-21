@@ -13,6 +13,7 @@ from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
 from .default_strategies.defaultstrat import *  # pylint: disable=wildcard-import
+# pylint: disable=unused-wildcard-import
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *  # pylint: disable=wildcard-import
@@ -73,7 +74,7 @@ class PPDSimulation:
         sim_results["Average Points"] = (
             sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
         )
-        GUIresults.show_results_gui(self, sim_results)   
+        GUIresults.show_results_gui(self, sim_results)
 
     def initcandidates(self):
         """
