@@ -33,7 +33,9 @@ class GUIresults:
         - None
         """
         # Ermittle, ob eine Strategie "nice" ist
-        sim_results["nice"] = sim_results["Strategie Objekt"].apply(lambda candidates: candidates.nice)
+        sim_results["nice"] = sim_results["Strategie Objekt"].apply(
+            lambda candidates: candidates.nice
+        )
         # Sortiere das Ergebnis nach der durchschnittlichen Punktzahl
         sim_results.sort_values(by="Average Points", ascending=False, inplace=True)
         # Erstelle eine Farbliste basierend auf dem Attribut 'nice'
@@ -50,3 +52,17 @@ class GUIresults:
         plt.xlabel("Average Points")
         plt.gca().invert_yaxis()  # Höchste Punktzahl oben anzeigen
         plt.show()
+
+    def safe_results(self, show_results):
+        """
+        Speichert die Ergebnisse der Simulation in einer CSV-Datei.
+
+        Parameter:
+        - show_results (DataFrame): Ein Pandas-DataFrame, das die
+        Ergebnisse der Simulation enthält.
+
+        Rückgabewert:
+        - None
+        """
+        show_results.to_csv("simulation_results.csv", index=False)
+        print("Results saved to simulation_results.csv")
