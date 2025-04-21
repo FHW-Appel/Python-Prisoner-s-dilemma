@@ -12,10 +12,10 @@ import pandas as pd
 from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
-from .default_strategies.defaultstrat import *
+from .default_strategies.defaultstrat import *  # pylint: disable=wildcard-import
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
-from .custom_strategies import *
+from .custom_strategies import *  # pylint: disable=wildcard-import
 from .guis import GUIresults
 
 
@@ -66,11 +66,14 @@ class PPDSimulation:
                                                            histc2))
                         histc2.append(candidates[i2].react(turn, histc2,
                                                            histc1))
-                        [pointsc1, pointsc2] = rule.evaluate_points(histc1[turn], histc2[turn], pointsc1, pointsc2)
+                        [pointsc1, pointsc2] = rule.evaluate_points(
+                            histc1[turn], histc2[turn], pointsc1, pointsc2)
                     sim_results.loc[i1, "Total Points"] += pointsc1
                     sim_results.loc[i2, "Total Points"] += pointsc2
-        sim_results["Average Points"] = sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
-        GUIresults.show_results_gui(self, sim_results)
+        sim_results["Average Points"] = (
+            sim_results["Total Points"] / (num_candidates-1) / rule.repetitions
+        )
+        GUIresults.show_results_gui(self, sim_results)   
 
     def initcandidates(self):
         """

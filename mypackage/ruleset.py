@@ -28,10 +28,14 @@ class Ruleset:
     - turns (int): Tatsächliche Anzahl der Runden.
     - repetitions (int): Anzahl der Wiederholungen der Simulation.
     """
+
+    # pylint: disable=too-many-instance-attributes
     defect = False
     cooperate = True
 
     def __init__(self) -> None:
+        #  Die folgenden Attribute können zu einen späteren Zeitpunkt noch
+        #  verändert werden, um die Regeln des Spiels zu ändern.
         self.suckers = 0  # S Auszahlung des Trottels
         self.both_defects = 1  # P bestrafen
         self.both_cooperates = 3  # R belohnen
