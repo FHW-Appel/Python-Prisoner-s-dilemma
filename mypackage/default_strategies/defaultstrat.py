@@ -281,9 +281,8 @@ class Grasskamp(Strategy):
             if 5 <= self.counter_subturn:
                 if self.react_prob_defect(10):
                     return Strategy.cooperate
-                else:
-                    self.counter_subturn = 0
-                    return Strategy.defect
+                self.counter_subturn = 0
+                return Strategy.defect
             return Strategy.cooperate
 
         # Switch-case-ähnliche Struktur
@@ -320,7 +319,7 @@ class Grasskamp(Strategy):
             if myhist[-(i+1)] == hishist[-i]:
                 retaliation_count += 1
 
-        # Mehrheitsentscheidung: Wenn mehr als die Hälfte der letzten 
+        # Mehrheitsentscheidung: Wenn mehr als die Hälfte der letzten
         # 10 Züge Vergeltung war
         self.opponent_is_retaliating = retaliation_count > 5
 
