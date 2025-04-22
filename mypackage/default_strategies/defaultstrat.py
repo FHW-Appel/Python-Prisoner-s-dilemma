@@ -275,15 +275,15 @@ class Grasskamp(Strategy):
         def case_late_game():
             if self.opponent_is_retaliating:
                 return hishist[-1]
-            elif self.opponent_playing_random:
+            if self.opponent_playing_random:
                 return Strategy.defect
-            elif 5 < self.counter_subturn:
+            self.counter_subturn += 1
+            if 5 <= self.counter_subturn:
                 if self.react_prob_defect(10):
                     return Strategy.cooperate
                 else:
                     self.counter_subturn = 0
                     return Strategy.defect
-            self.counter_subturn += 1
             return Strategy.cooperate
 
         # Switch-case-ähnliche Struktur
@@ -308,16 +308,21 @@ class Grasskamp(Strategy):
         """
         Diese Methode überprüft, ob der Gegner vergeltet.
         """
-        if currentturn < 2:
+        if currentturn < 11:
             # Nicht genug Daten, um eine Aussage zu treffen
             self.opponent_is_retaliating = False
             return
 
         # Überprüfen, ob der Gegner vergeltet (Tit for Tat Verhalten)
-        if myhist[-2] == Strategy.defect and hishist[-1] == Strategy.defect:
-            self.opponent_is_retaliating = True
-        else:
-            self.opponent_is_retaliating = False
+        # basierend auf den letzten 10 Zügen
+        retaliation_count = 0
+        for i in range(1, 11):  # Überprüfe die letzten 10 Züge
+            if myhist[-(i+1)] == hishist[-i]:
+                retaliation_count += 1
+
+        # Mehrheitsentscheidung: Wenn mehr als die Hälfte der letzten 
+        # 10 Züge Vergeltung war
+        self.opponent_is_retaliating = retaliation_count > 5
 
     def check_if_random(self, currentturn, hishist):
         """
