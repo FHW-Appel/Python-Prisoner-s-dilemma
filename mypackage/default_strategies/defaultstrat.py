@@ -222,3 +222,105 @@ class Testfortft(Strategy):
             return hishist[-1]
         # Wenn der Gegner nicht zurückschlägt, dann kooperiere nicht
         return Strategy.defect
+
+
+class Grasskamp(Strategy):
+    """
+    Diese Strategie spielt weitensgehend Tit for Tat. Versucht jedoch herauszufinden,
+    ob die gegnerische Strategie zufällig reagiert, um dann nur noch zu defekten.
+
+    Verhalten
+    - Dies Strategie spielt für die ersten 50 Runden Tit for Tat.
+    - In Runde 51 wird defected.
+    - Runde 52 bis 56 Tit for Tat
+    - Es wird eine Überprüfung erstellt, die herausfinden möchte,
+      ob der Gegner zufällig reagiert. Wenn dem so ist, dann wird immer defect.
+    - Ein weiterer Test überprüft ob die andere Strategie Tit for Tat spielt,
+      dann wird nurnoch Tit for Tat gespielt.
+    - Wenn die andere Strategie nicht Tit for Tat spielt,
+      dann wird alle 5 bis 15 Züge zufällig defect.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "Grasskamp"
+        self.nice = False
+        self.opponent_is_retaliating = False
+        self.opponent_playing_random = False
+        self.counter_subturn = 0
+
+    def react(self, currentturn, _myhist, hishist):
+        """
+        Reaktion der Strategie basierend auf der aktuellen Runde.
+        """
+        if 1 > currentturn:
+            # In der ersten Runde werden die Merker zurückgesetzt
+            self.opponent_is_retaliating = False
+            self.opponent_playing_random = False
+            self.counter_subturn = 0
+            # und es wird kooperiert
+            return Strategy.cooperate
+        if 50 > currentturn:
+            # In den ersten 50 Runden Tit for Tat spielen
+            return hishist[-1]
+        if 51 > currentturn:
+            # In der 51 Runde verraten
+            return Strategy.defect
+        if 56 > currentturn:
+            # Runde 52 bis 56 wird Tit for Tat gespielt
+            return hishist[-1]
+        if 57 > currentturn:
+            # In Runde 57 wird überprüft, ob der Gegner vergeltet oder
+            # zufällig reagiert.
+            self.check_if_retaliating(currentturn, _myhist, hishist)
+            self.check_if_random(currentturn, _myhist, hishist)
+            if self.opponent_is_retaliating:
+                return self.cooperate
+            if self.opponent_playing_random:
+                return self.defect
+            return self.cooperate
+        if 58 > currentturn:
+            # Verhalten ab Runde 58
+            if self.opponent_is_retaliating:
+                return hishist[-1]  # Tit for Tat bei vergeltenden Strategien
+            if self.opponent_playing_random:
+                return self.defect  # Immer verraten bei zufälligen Strategien
+            if 5 >= self.counter_subturn:  # Alle 5 bis 15 Runden zufällig vergelten
+                self.counter_subturn = self.counter_subturn + 1
+                if self.react_prob_defect(10):
+                    return self.cooperate
+                self.counter_subturn = 0
+                return self.defect
+            return self.cooperate
+
+    def check_if_retaliating(self, currentturn, myhist, hishist):
+        """
+        Diese Methode überprüft, ob der Gegner vergeltet.
+        """
+        if currentturn < 2:
+            # Nicht genug Daten, um eine Aussage zu treffen
+            self.opponent_is_retaliating = False
+            return
+
+        # Überprüfen, ob der Gegner vergeltet (Tit for Tat Verhalten)
+        if myhist[-2] == Strategy.defect and hishist[-1] == Strategy.defect:
+            self.opponent_is_retaliating = True
+        else:
+            self.opponent_is_retaliating = False
+
+    def check_if_random(self, currentturn, _myhist, hishist):
+        """
+        Diese Methode überprüft, ob der Gegner zufällig reagiert.
+        """
+        if currentturn < 6:
+            # Nicht genug Daten, um eine Aussage zu treffen
+            self.opponent_playing_random = False
+            return
+
+        # Berechne die Kooperationsrate
+        cooperation_rate = (sum(hishist) / len(hishist)) * 100
+        # Zwischen 30% und 70% nehme ein zufälliges verhalten an.
+        if 30 <= cooperation_rate <= 70:
+            self.opponent_playing_random = True
+        else:
+            self.opponent_playing_random = False
