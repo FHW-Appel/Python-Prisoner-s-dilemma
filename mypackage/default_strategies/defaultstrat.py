@@ -253,50 +253,56 @@ class Grasskamp(Strategy):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
-        r_value = Strategy.cooperate  # Standardrückgabewert
-        if 1 > currentturn:
-            # In der ersten Runde werden die Merker zurückgesetzt
+        def case_first_round():
             self.opponent_is_retaliating = False
             self.opponent_playing_random = False
             self.counter_subturn = 0
-            # und es wird kooperiert
-            r_value = Strategy.cooperate
-        elif 50 > currentturn:
-            # In den ersten 50 Runden Tit for Tat spielen
-            r_value = hishist[-1]
-        elif 51 > currentturn:
-            # In der 51 Runde verraten
-            r_value = Strategy.defect
-        elif 56 > currentturn:
-            # Runde 52 bis 56 wird Tit for Tat gespielt
-            r_value = hishist[-1]
-        elif 57 > currentturn:
-            # In Runde 57 wird überprüft, ob der Gegner vergeltet oder
-            # zufällig reagiert.
+            return Strategy.cooperate
+
+        def case_tit_for_tat():
+            return hishist[-1]
+
+        def case_defect():
+            return Strategy.defect
+
+        def case_check_opponent():
             self.check_if_retaliating(currentturn, myhist, hishist)
             self.check_if_random(currentturn, hishist)
+            if self.opponent_playing_random:
+                return Strategy.defect
+            return Strategy.cooperate
+
+        def case_late_game():
             if self.opponent_is_retaliating:
-                r_value = self.cooperate
+                return hishist[-1]
             elif self.opponent_playing_random:
-                r_value = self.defect
-            else:
-                r_value = self.cooperate
-        elif 58 > currentturn:
-            # Verhalten ab Runde 58
-            if self.opponent_is_retaliating:
-                r_value = hishist[-1]  # Tit for Tat bei vergeltenden Strategien
-            elif self.opponent_playing_random:
-                r_value = self.defect  # Immer verraten bei zufälligen Strategien
-            elif 5 >= self.counter_subturn:  # Alle 5 bis 15 Runden zufällig vergelten
-                self.counter_subturn = self.counter_subturn + 1
+                return Strategy.defect
+            elif 5 < self.counter_subturn:
                 if self.react_prob_defect(10):
-                    r_value = self.cooperate
+                    return Strategy.cooperate
                 else:
                     self.counter_subturn = 0
-                    r_value = self.defect
-            else:
-                r_value = self.cooperate
-        return r_value
+                    return Strategy.defect
+            self.counter_subturn += 1
+            return Strategy.cooperate
+
+        # Switch-case-ähnliche Struktur
+        switch = {
+            currentturn < 1: case_first_round,
+            currentturn < 50: case_tit_for_tat,
+            currentturn < 51: case_defect,
+            currentturn < 56: case_tit_for_tat,
+            currentturn < 57: case_check_opponent,
+            currentturn >= 58: case_late_game,
+        }
+
+        # Führe die passende Funktion aus
+        for condition, action in switch.items():
+            if condition:
+                return action()
+
+        # Standardrückgabewert
+        return Strategy.cooperate
 
     def check_if_retaliating(self, currentturn, myhist, hishist):
         """
