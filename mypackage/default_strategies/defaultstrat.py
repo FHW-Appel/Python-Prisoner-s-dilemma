@@ -249,7 +249,7 @@ class Grasskamp(Strategy):
         self.opponent_playing_random = False
         self.counter_subturn = 0
 
-    def react(self, currentturn, _myhist, hishist):
+    def react(self, currentturn, myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
@@ -272,8 +272,8 @@ class Grasskamp(Strategy):
         if 57 > currentturn:
             # In Runde 57 wird überprüft, ob der Gegner vergeltet oder
             # zufällig reagiert.
-            self.check_if_retaliating(currentturn, _myhist, hishist)
-            self.check_if_random(currentturn, _myhist, hishist)
+            self.check_if_retaliating(currentturn, myhist, hishist)
+            self.check_if_random(currentturn, hishist)
             if self.opponent_is_retaliating:
                 return self.cooperate
             if self.opponent_playing_random:
@@ -308,7 +308,7 @@ class Grasskamp(Strategy):
         else:
             self.opponent_is_retaliating = False
 
-    def check_if_random(self, currentturn, _myhist, hishist):
+    def check_if_random(self, currentturn, hishist):
         """
         Diese Methode überprüft, ob der Gegner zufällig reagiert.
         """

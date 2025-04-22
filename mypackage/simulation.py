@@ -12,8 +12,9 @@ import pandas as pd
 from .ruleset import Ruleset
 from .basestrategy import Strategy
 # importiert alle Klassen des Files "defaultstrat"
-from .default_strategies.defaultstrat import *  # pylint: disable=wildcard-import
+# pylint: disable=wildcard-import 
 # pylint: disable=unused-wildcard-import
+from .default_strategies.defaultstrat import *
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
 from .custom_strategies import *  # pylint: disable=wildcard-import
