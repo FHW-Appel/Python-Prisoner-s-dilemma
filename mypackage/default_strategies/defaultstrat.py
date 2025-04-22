@@ -253,46 +253,50 @@ class Grasskamp(Strategy):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
+        r_value = Strategy.cooperate  # Standardrückgabewert
         if 1 > currentturn:
             # In der ersten Runde werden die Merker zurückgesetzt
             self.opponent_is_retaliating = False
             self.opponent_playing_random = False
             self.counter_subturn = 0
             # und es wird kooperiert
-            return Strategy.cooperate
-        if 50 > currentturn:
+            r_value = Strategy.cooperate
+        elif 50 > currentturn:
             # In den ersten 50 Runden Tit for Tat spielen
-            return hishist[-1]
-        if 51 > currentturn:
+            r_value = hishist[-1]
+        elif 51 > currentturn:
             # In der 51 Runde verraten
-            return Strategy.defect
-        if 56 > currentturn:
+            r_value = Strategy.defect
+        elif 56 > currentturn:
             # Runde 52 bis 56 wird Tit for Tat gespielt
-            return hishist[-1]
-        if 57 > currentturn:
+            r_value = hishist[-1]
+        elif 57 > currentturn:
             # In Runde 57 wird überprüft, ob der Gegner vergeltet oder
             # zufällig reagiert.
             self.check_if_retaliating(currentturn, myhist, hishist)
             self.check_if_random(currentturn, hishist)
             if self.opponent_is_retaliating:
-                return self.cooperate
-            if self.opponent_playing_random:
-                return self.defect
-            return self.cooperate
-        if 58 > currentturn:
+                r_value = self.cooperate
+            elif self.opponent_playing_random:
+                r_value = self.defect
+            else:
+                r_value = self.cooperate
+        elif 58 > currentturn:
             # Verhalten ab Runde 58
             if self.opponent_is_retaliating:
-                return hishist[-1]  # Tit for Tat bei vergeltenden Strategien
-            if self.opponent_playing_random:
-                return self.defect  # Immer verraten bei zufälligen Strategien
-            if 5 >= self.counter_subturn:  # Alle 5 bis 15 Runden zufällig vergelten
+                r_value = hishist[-1]  # Tit for Tat bei vergeltenden Strategien
+            elif self.opponent_playing_random:
+                r_value = self.defect  # Immer verraten bei zufälligen Strategien
+            elif 5 >= self.counter_subturn:  # Alle 5 bis 15 Runden zufällig vergelten
                 self.counter_subturn = self.counter_subturn + 1
                 if self.react_prob_defect(10):
-                    return self.cooperate
-                self.counter_subturn = 0
-                return self.defect
-            return self.cooperate
-        return self.cooperate
+                    r_value = self.cooperate
+                else:
+                    self.counter_subturn = 0
+                    r_value = self.defect
+            else:
+                r_value = self.cooperate
+        return r_value
 
     def check_if_retaliating(self, currentturn, myhist, hishist):
         """
