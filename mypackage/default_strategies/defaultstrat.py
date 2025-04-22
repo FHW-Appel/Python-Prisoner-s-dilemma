@@ -292,6 +292,7 @@ class Grasskamp(Strategy):
                 self.counter_subturn = 0
                 return self.defect
             return self.cooperate
+        return self.cooperate
 
     def check_if_retaliating(self, currentturn, myhist, hishist):
         """
