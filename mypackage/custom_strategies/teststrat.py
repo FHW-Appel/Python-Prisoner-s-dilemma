@@ -5,22 +5,17 @@ Dieses Modul definiert benutzerdefinierte Strategien für das Gefangenendilemma.
 from ..basestrategy import Strategy
 
 
-class FirstCosumStrat(Strategy):
+class CooperateEverySecondRound(Strategy):
     """
-    Diese Strategie kooperiert in der ersten Runde und verwendet
-    den Zug des Gegners aus der vorletzten Runde für die Entscheidung
-    in den folgenden Runden.
+    Diese Strategie defektiert jede zweite Runde.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "First Custom Strategy"
-        self.nice = True
+    name = "Alternate"
+    nice = False
 
     def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
-        if 1 > currentturn:
+        if currentturn % 2 == 0:
             return Strategy.cooperate
-        return hishist[-2]
+        return Strategy.defect
