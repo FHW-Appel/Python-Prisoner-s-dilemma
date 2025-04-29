@@ -63,7 +63,7 @@ class Strategy:
         Kooperiere nicht mit gegebener Wahrscheinlichkeit.
         """
         return self.react_prob_cooperate(100-prob)
-    
+
     def react_grudge(self, currentturn, _myhist, hishist):
         """
         In dieser Reaktion wird kooperiert, bis der Gegner defektiert. Danach
