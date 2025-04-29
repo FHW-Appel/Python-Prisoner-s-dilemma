@@ -12,7 +12,7 @@ class CooperateEverySecondRound(Strategy):
     name = "Alternate"
     nice = False
 
-    def react(self, currentturn, _myhist, hishist):
+    def react(self, currentturn, _myhist, _hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """

@@ -142,9 +142,9 @@ class White(Strategy):
             self.retailiating_count += 1
             return Strategy.defect
         # Versöhnung:
-        if 1 < currentturn: # erst ab Runde 3 
+        if 1 < currentturn:  # erst ab Runde 3
             retailiating_end = self.retailiating_count == self.opponent_defect_count
-            time_to_reconcile = myhist[-1] == Strategy.defect or myhist[-2] == Strategy.defect
+            time_to_reconcile = Strategy.defect in (myhist[-1], myhist[-2])
             if retailiating_end and time_to_reconcile:
                 return Strategy.cooperate
         # Verhalten, wenn der Gegner defektiert:
@@ -169,7 +169,7 @@ class Alfred(Strategy):
     name = "Ekel Alfred (Sondierer)"
     nice = False
 
-    def react(self, currentturn, myhist, hishist):
+    def react(self, currentturn, _myhist, hishist):
         """Reaktion der Strategie basierend auf der aktuellen Runde."""
         # Verhalten in der ersten Runde:
         if 0 == currentturn:
