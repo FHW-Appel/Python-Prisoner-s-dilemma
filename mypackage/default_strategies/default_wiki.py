@@ -49,15 +49,7 @@ class Corleone(Strategy):
 
     def react(self, currentturn, _myhist, hishist):
         """Reaktion der Strategie basierend auf der aktuellen Runde."""
-        if 0 == currentturn:
-            self.cheated = False
-            return Strategy.cooperate
-        if self.cheated:
-            return Strategy.defect
-        if Strategy.defect == hishist[-1]:
-            self.cheated = True
-            return Strategy.defect
-        return Strategy.cooperate
+        return self.react_grudge(currentturn, _myhist, hishist)
 
 
 class Batman(Strategy):
