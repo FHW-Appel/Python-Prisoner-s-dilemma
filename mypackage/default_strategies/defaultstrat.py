@@ -14,11 +14,8 @@ class TitForTat(Strategy):
     Diese Strategie kooperiert in der ersten Runde und kopiert anschließend
     den letzten Zug des Gegners.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Tit for Tat"
-        self.nice = True
+    name = "Tit for Tat"
+    nice = True
 
     def react(self, currentturn, _myhist, hishist):
         """
@@ -34,11 +31,8 @@ class RandomStrat(Strategy):
     Diese Strategie kooperiert oder defektiert zufällig mit einer
     Wahrscheinlichkeit von 50 %.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Random"
-        self.nice = False
+    name = "Random"
+    nice = False
 
     def react(self, _currentturn, _myhist, _hishist):
         """
@@ -53,26 +47,14 @@ class Friedman(Strategy):
     Diese Strategie kooperiert, bis der Gegner defektiert. Danach defektiert
     sie dauerhaft. Diese Strategie kann nicht verzeihen.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Friedman"
-        self.cheated = False
-        self.nice = True
+    name = "Friedman (Groll)"
+    nice = True
 
     def react(self, currentturn, _myhist, hishist):
         """
         Reaktion der Strategie basierend auf der aktuellen Runde.
         """
-        if 0 == currentturn:
-            self.cheated = False
-            return Strategy.cooperate
-        if self.cheated:
-            return Strategy.defect
-        if Strategy.defect == hishist[-1]:
-            self.cheated = True
-            return Strategy.defect
-        return Strategy.cooperate
+        return self.react_grudge(currentturn, _myhist, hishist)
 
 
 class Joss(Strategy):
@@ -80,10 +62,8 @@ class Joss(Strategy):
     Diese Strategie kooperiert mit einer Wahrscheinlichkeit von 90 %,
     außer der Gegner defektiert, dann wird auf defektiert.
     """
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Joss"
-        self.nice = False
+    name = "Joss"
+    nice = False
 
     def react(self, currentturn, _myhist, hishist):
         """
@@ -103,11 +83,8 @@ class Davis(Strategy):
     Diese Strategie kooperiert in den ersten 10 Runden und spielt danach
     Friedman. Sie kann nicht verzeihen.
     """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Davis"
-        self.cheated = False
+    name = "Davis"
+    cheated = False
 
     def react(self, currentturn, _myhist, hishist):
         """
@@ -135,11 +112,8 @@ class Grofman(Strategy):
     haben dasselbe gewählt). Wenn keine Einigkeit bestand, kooperiert sie mit
     einer Wahrscheinlichkeit von 28,6 %.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.name = "Grofman"
-        self.nice = True
+    name = "Grofman"
+    nice = True
 
     def react(self, currentturn, myhist, hishist):
         """
@@ -161,11 +135,8 @@ class Feld(Strategy):
     Wenn der Gegner nicht kooperiert hat, steigt die Wahrscheinlichkeit
     für Defektion mit jeder Runde.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.name = "Feld"
-        self.nice = False
+    name = "Feld"
+    nice = False
 
     def react(self, currentturn, _myhist, hishist):
         """
@@ -194,12 +165,9 @@ class Testfortft(Strategy):
       - Wenn der Gegner zurückschlägt, wird Tit-for-Tat gespielt.
       - Wenn der Gegner nicht zurückschlägt, wird dauerhaft defektiert.
    """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.name = "Tester"
-        self.nice = False
-        self.opponent_is_retaliating = False
+    name = "Tester"
+    nice = False
+    opponent_is_retaliating = False
 
     def react(self, currentturn, _myhist, hishist):
         """
@@ -226,8 +194,9 @@ class Testfortft(Strategy):
 
 class Grasskamp(Strategy):
     """
-    Diese Strategie spielt weitensgehend Tit for Tat. Versucht jedoch herauszufinden,
-    ob die gegnerische Strategie zufällig reagiert, um dann nur noch zu defekten.
+    Diese Strategie spielt weitensgehend Tit for Tat. Versucht jedoch
+    herauszufinden, ob die gegnerische Strategie zufällig reagiert,
+    um dann nur noch zu defekten.
 
     Verhalten
     - Dies Strategie spielt für die ersten 50 Runden Tit for Tat.
@@ -240,14 +209,11 @@ class Grasskamp(Strategy):
     - Wenn die andere Strategie nicht Tit for Tat spielt,
       dann wird alle 5 bis 15 Züge zufällig defect.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.name = "Grasskamp"
-        self.nice = False
-        self.opponent_is_retaliating = False
-        self.opponent_playing_random = False
-        self.counter_subturn = 0
+    name = "Grasskamp"
+    nice = False
+    opponent_is_retaliating = False
+    opponent_playing_random = False
+    counter_subturn = 0
 
     def react(self, currentturn, myhist, hishist):
         """

@@ -27,6 +27,7 @@ class Strategy:
     cooperate = True
     classid = 0  # Muss noch gesetzt werden
     nice = False
+    cheated = False # Gibt an, ob die Strategie betrogen wurde
     name = ""
 
     def __init__(self) -> None:
@@ -62,3 +63,18 @@ class Strategy:
         Kooperiere nicht mit gegebener Wahrscheinlichkeit.
         """
         return self.react_prob_cooperate(100-prob)
+
+    def react_grudge(self, currentturn, _myhist, hishist):
+        """
+        In dieser Reaktion wird kooperiert, bis der Gegner defektiert. Danach
+        wird dauerhaft defektiert.
+        """
+        if 0 == currentturn:
+            self.cheated = False
+            return Strategy.cooperate
+        if self.cheated:
+            return Strategy.defect
+        if Strategy.defect == hishist[-1]:
+            self.cheated = True
+            return Strategy.defect
+        return Strategy.cooperate
