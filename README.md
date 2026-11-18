@@ -7,5 +7,8 @@ In diesem Projekt wird das Gefangenendilemma in Python nachprogrammiert. Neben b
 
 [Erklärendes Video von Veritasium](https://www.youtube.com/watch?v=mScpHTIi-kM)
 
+# Voraussetzungen
+Python Version 3.12
+
 
 

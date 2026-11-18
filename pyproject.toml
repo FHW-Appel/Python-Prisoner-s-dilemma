@@ -1,0 +1,7 @@
+[project]
+name = "python-prisoner-s-dilemma"
+requires-python = "==3.12.*"
+dependencies = [
+    "matplotlib==3.10.1",
+    "pandas==2.2.3",
+]
