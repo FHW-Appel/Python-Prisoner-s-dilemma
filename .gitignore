@@ -1,5 +1,4 @@
 # Files and Folders to ignore in this Python projects
-mypackage/custom_strategies/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

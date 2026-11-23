@@ -4,4 +4,4 @@ Simulation verwendet werden sollen. Diese Strategien sind spezifische
 Implementierungen des Gefangenendilemmas, die auf der
 Basisklasse `Strategy` basieren.
 """
-__all__ = ['teststrat']
+__all__ = ['teststrat', 'ownstrat']
