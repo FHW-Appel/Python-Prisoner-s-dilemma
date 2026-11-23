@@ -19,7 +19,7 @@ from .default_strategies.baseset import *
 # from .default_strategies.defaultstrat import *
 # Hier muss noch ein Befehl gefunden werden,
 # mit dem alle Klassen eines Ordners eingebunden werden können.
-from .custom_strategies.ownstrat import *  # pylint: disable=wildcard-import
+from .custom_strategies.teststrat import *  # pylint: disable=wildcard-import
 from .guis import GUIresults
 
 
